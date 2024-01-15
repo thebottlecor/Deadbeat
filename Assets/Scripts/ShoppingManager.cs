@@ -34,9 +34,10 @@ public class ShoppingManager : Singleton<ShoppingManager>
     }
 
     public List<MarketInfo> sellGoods;
-    public bool sold;
+    [HideInInspector] public int shoppingItemUICount = 5;
 
-    public ShoppingUI shoppingUI;
+    public ShoppingUI panelUI;
+    private bool sold;
 
     protected override void Awake()
     {
@@ -62,7 +63,7 @@ public class ShoppingManager : Singleton<ShoppingManager>
             for (int i = 0; i < count; i++)
             {
                 int randomIndex = UnityEngine.Random.Range(0, temp.Value.Count);
-                float randomPriceModify = UnityEngine.Random.Range(5, 21) * 0.1f;
+                float randomPriceModify = UnityEngine.Random.Range(5, 16) * 0.1f;
                 int randomSellStack = UnityEngine.Random.Range(1, 4);
 
                 MarketInfo marketInfo = new MarketInfo
@@ -80,7 +81,7 @@ public class ShoppingManager : Singleton<ShoppingManager>
         for (int i = 0; i < max; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, shoppingItemLibrary.itemTypes.Count);
-            float randomPriceModify = UnityEngine.Random.Range(5, 21) * 0.1f;
+            float randomPriceModify = UnityEngine.Random.Range(5, 16) * 0.1f;
             int randomSellStack = UnityEngine.Random.Range(1, 4);
 
             MarketInfo marketInfo = new MarketInfo
@@ -93,7 +94,7 @@ public class ShoppingManager : Singleton<ShoppingManager>
             sellGoods.Add(marketInfo);
         }
 
-        shoppingUI.UIUpdate();
+        panelUI.UIUpdate();
     }
 
     public void BuyAndUse(int index)
@@ -111,18 +112,20 @@ public class ShoppingManager : Singleton<ShoppingManager>
         {
             int stack = goods.sellStack;
             // Buy
-            GM.Instance.SetGold(GM.Instance.Gold - price);
+            GM.Instance.AddGold(-1 * price);
             goods.sold = true;
             goods.sellStack = 0;
             sellGoods[index] = goods;
 
             // Use
-            // 지금은 즉시 사용
-            shoppingItemDic[goods.itemType].Use(stack);
+            // 즉시 사용
+            //shoppingItemDic[goods.itemType].Use(stack);
+            // 아이템 소환
+            Inventory.Instance.Buy(goods.itemType, stack);
 
             //SetSold(true);
 
-            shoppingUI.UIUpdate();
+            panelUI.UIUpdate();
         }
 
     }
@@ -132,12 +135,12 @@ public class ShoppingManager : Singleton<ShoppingManager>
         if (on)
         {
             sold = true;
-            shoppingUI.soldOutUI.SetActive(true);
+            panelUI.soldOutUI.SetActive(true);
         }
         else
         {
             sold = false;
-            shoppingUI.soldOutUI.SetActive(false);
+            panelUI.soldOutUI.SetActive(false);
         }
     }
 

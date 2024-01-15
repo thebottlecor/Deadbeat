@@ -46,5 +46,6 @@ public class ShoppingItemInfo : ScriptableObject
         {
             GM.Instance.stats[(int)effects[i].statType].AddValue(effects[i].statValue * mul);
         }
+        GM.Instance.DeadCheck();
     }
 }

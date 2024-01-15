@@ -123,6 +123,11 @@ public class GM : Singleton<GM>
         Gold = value;
         goldTmp.text = $"{Gold}G";
     }
+    public void AddGold(int value)
+    {
+        Gold += value;
+        goldTmp.text = $"{Gold}G";
+    }
 
     public void NextDay_ButtonClick()
     {
@@ -140,19 +145,27 @@ public class GM : Singleton<GM>
         // ´ë±â
         yield return new WaitForSeconds(1f);
 
+        DeadCheck(true);
+
+        ShoppingManager.Instance.SetSellGoods_Random();
+        PartTimeManager.Instance.ResetWorkLimit();
+
+        nightUI.Toggle(false);
+        Loading = false;
+    }
+
+    public void DeadCheck(bool dailyChange = false)
+    {
         for (int i = 0; i < stats.Count; i++)
         {
-            stats[i].DailyUpdate();
+            if (dailyChange)
+                stats[i].DailyUpdate();
+
             if (stats[i].Value <= 0)
             {
                 gameoverUI.SetActive(true);
                 break;
             }
         }
-
-        ShoppingManager.Instance.SetSellGoods_Random();
-
-        nightUI.Toggle(false);
-        Loading = false;
     }
 }

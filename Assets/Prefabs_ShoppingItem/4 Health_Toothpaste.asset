@@ -10,16 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 277bd3df521c4d445910d81f32034e75, type: 3}
-  m_Name: Hungry_Cola
+  m_Name: 4 Health_Toothpaste
   m_EditorClassIdentifier: 
-  category: 0
-  itemType: 1
-  sprite: {fileID: 1155048370, guid: 931b134ac03cebd4ab7e99057408005d, type: 3}
-  basePrice: 10000
+  category: 1
+  itemType: 4
+  sprite: {fileID: -2100506419, guid: 931b134ac03cebd4ab7e99057408005d, type: 3}
+  basePrice: 5000
   effects:
-  - statType: 0
-    statValue: 8
   - statType: 1
-    statValue: -16
-  - statType: 2
-    statValue: 16
+    statValue: 20

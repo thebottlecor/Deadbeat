@@ -5,16 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class ShoppingUI : MonoBehaviour
+public class ShoppingUI : InternetSubPanel
 {
-
-
-    public GameObject panel;
-    public GameObject soldOutUI;
 
     [Header("¼îÇÎ UI »ý¼º")]
     [SerializeField] private GameObject shoppingItemUISource;
-    [SerializeField] private int shoppingItemUICount = 3;
     [SerializeField] private Transform shoppingItemUIParent;
     [SerializeField] private List<ShoppingItemUI> shoppingItemUIs;
 
@@ -28,27 +23,16 @@ public class ShoppingUI : MonoBehaviour
 
     public void Init()
     {
-        shoppingItemUIs = new List<ShoppingItemUI>(shoppingItemUICount);
-        for (int i = 0; i < shoppingItemUICount; i++)
+        int count = ShoppingManager.Instance.shoppingItemUICount;
+        shoppingItemUIs = new List<ShoppingItemUI>(count);
+        for (int i = 0; i < count; i++)
         {
             var obj = Instantiate(shoppingItemUISource, shoppingItemUIParent);
-            ShoppingItemUI shoppingItemUI = obj.GetComponent<ShoppingItemUI>();
-            shoppingItemUI.Init(i);
-            shoppingItemUIs.Add(shoppingItemUI);
+            ShoppingItemUI itemUI = obj.GetComponent<ShoppingItemUI>();
+            itemUI.Init(i);
+            shoppingItemUIs.Add(itemUI);
         }
         UIUpdate();
-    }
-
-    public void PanelToggle()
-    {
-        if (panel.activeSelf)
-        {
-            panel.SetActive(false);
-        }
-        else
-        {
-            panel.SetActive(true);
-        }
     }
 
     public void UIUpdate()

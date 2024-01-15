@@ -9,7 +9,7 @@ public class ShoppingItemUI : MonoBehaviour
 {
 
     public Image icon;
-    public Button buyButton;
+    public Button doButton;
     public TextMeshProUGUI stackTMP;
     public TextMeshProUGUI priceTMP;
 
@@ -25,10 +25,16 @@ public class ShoppingItemUI : MonoBehaviour
         var info = ShoppingManager.Instance.sellGoods[index];
         icon.sprite = info.GetSprite();
         stackTMP.text = $"x{info.sellStack}";
-        priceTMP.text = $"{info.GetPrice()}G ({info.priceModify:P0})";
+
+        if (info.priceModify > 1f)
+            priceTMP.text = $"<color=#ff0000>{info.GetPrice()}G ({info.priceModify:P0})";
+        else if (info.priceModify == 1f)
+            priceTMP.text = $"<color=#000000>{info.GetPrice()}G ({info.priceModify:P0})";
+        else
+            priceTMP.text = $"<color=#0000ff>{info.GetPrice()}G ({info.priceModify:P0})";
     }
 
-    public void Buy()
+    public void Do()
     {
         ShoppingManager.Instance.BuyAndUse(index);
     }

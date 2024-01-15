@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 277bd3df521c4d445910d81f32034e75, type: 3}
-  m_Name: Hungry_Apple
+  m_Script: {fileID: 11500000, guid: c78abc065dcec044087517dd482fda83, type: 3}
+  m_Name: 2 PartTime_Clean
   m_EditorClassIdentifier: 
-  category: 0
-  itemType: 0
-  sprite: {fileID: 74167105, guid: 931b134ac03cebd4ab7e99057408005d, type: 3}
-  basePrice: 4000
+  itemType: 2
+  sprite: {fileID: -2139071548, guid: 835868b430240d041a2f2be778aeae9a, type: 3}
+  wage: 10000
   effects:
-  - statType: 0
-    statValue: 16
+  - statType: 1
+    statValue: -20
